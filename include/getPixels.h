@@ -19,4 +19,4 @@ extern void setChannel(Image* image, int x, int y, int ch, unsigned char value);
 	make sure not to touch neighbouring pixels to avoid segfault
 	
 */
-extern void pixelwice(Image* image, void(*func)(unsigned char*));
+extern void pixelwice(Image* image, unsigned char* output, void(*func)(unsigned char*, unsigned char*, int*), int* args);
