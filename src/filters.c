@@ -35,14 +35,15 @@ int* variate(int count, int n, int* lims) {
 
 	for (int i = 0; i < count; i++) {
 		*temp = n % (*lims);
-		n /= *lims;  
+		n /= (*lims);  
 		temp++; lims++; // move on
 	}
+
 	return args;
 }
 
 
-Image* filter(Image* input, char startValue){
+Image* filter(Image* input, int startValue){
 	// allocate the image
 	Image* output = (struct Image*) malloc(sizeof(struct Image));
 	output->x = input->x;
@@ -52,10 +53,10 @@ Image* filter(Image* input, char startValue){
 	int datasize = input->n * input->x * input->y;
 	output->data = (unsigned char*) malloc(sizeof(unsigned char) * datasize);
 	
-	int limits[] = {10,5,30};
+	int limits[] = {10, 10, 10};
 	int* args = variate(3, startValue, limits);
 
-	pixelwice(input, output->data, que, args); 
+	pixelwice(input, output->data, greyscale, args); 
 
         free(args);
 

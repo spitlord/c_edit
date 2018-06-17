@@ -27,8 +27,7 @@ int main(int argc, char**argv) {
   for (int i = 0; i < NUMBER_OUTPUT; i++) {
     printf("\33[2K\r%d",i);
     fflush(stdout);
-    char frequency = i % 0x100;
-    Image* outputImage = filter(&image, &frequency);
+    Image* outputImage = filter(&image, i);
 
 
   
