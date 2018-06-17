@@ -2,13 +2,12 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 
 #define QUALITY 40
-#define NUMBER_OUTPUT 0x100
+#define NUMBER_OUTPUT 0x400
 
 #include "../lib/stb/stb_image.h"
 #include "../lib/stb/stb_image_write.h"
 #include <stdio.h>
 #include <stdlib.h>
-//#include <getPixels.h>
 #include <filters.h>
 
 
@@ -23,27 +22,20 @@ int main(int argc, char**argv) {
     return -1;
   }
   printf("Opened %s:x = %d, y = %d \n", argv[1], image.x, image.y);
+
+
   for (int i = 0; i < NUMBER_OUTPUT; i++) {
     printf("\33[2K\r%d",i);
     fflush(stdout);
     char frequency = i % 0x100;
-    Image* outputImage = filter(&image,&frequency);
+    Image* outputImage = filter(&image, &frequency);
 
-    // later to work with other extentionsx
-    char* ext;
-    ext = NULL;
-    ext = strrchr(argv[1], '.');
-    
-    if ( strcmp(ext, "jpg") == 0 )  { }
-    else if (strcmp(ext, "png") == 0 )  { }
-    else if (strcmp(ext, "j") == 0 )  { }
-    else if (strcmp(ext, "jpg") == 0 )  { }
-    else if (strcmp(ext, "jpg") == 0 )  { }
-    
+
   
     sprintf(name, "%s%05d.jpg", argv[2], i);
     if (!stbi_write_jpg(name, outputImage->x, outputImage->y, outputImage->n, outputImage->data, QUALITY)){
 	    printf("ERROR WRITING FILE\n");
+	    return -1;
     }
 
     free(outputImage->data);

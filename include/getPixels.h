@@ -4,9 +4,9 @@ typedef struct Image {
   int n; // number of channels
   int x; // width
   int y; // height
-} Image; 
+} Image;
 
-
+typedef unsigned char pixel;
 
 extern unsigned char getChannel(Image* image, int x, int y, int ch);
 
