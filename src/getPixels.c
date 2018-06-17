@@ -12,7 +12,7 @@ extern void setChannel(Image* image, int x, int y, int ch, unsigned char value) 
   *(image->data + (image->y * x + y)*3 + ch) = value;
 }
 
-extern void pixelwice(Image* image, unsigned char* output, void(*func)(unsigned char*, unsigned char*, int*), int* args) {
+extern void pixelwice(Image* image, pixel* output, void(*func)(pixel*, pixel*, int*), int* args) {
   int temp;
     for(int i = 0; i < image->x; i++) {
       for(int j = 0; j < image->y; j++) {

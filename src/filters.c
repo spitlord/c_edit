@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <filters.h>
-#include <math.h>
 
 void de(pixel* in, pixel* out, int* args) {
   *out = *in * (*args) % 0x100;
@@ -23,9 +22,27 @@ void que( pixel * in, pixel* out, int* args) {
    
 }
 
+/* 
+   creates arguments, increments them sequentially
+   count is number of arguments in the filter
+   n is the hash number
+   lims is max value each argument can take
+*/
+int* variate(int count, int n, int* lims) {
+	int* args = malloc(sizeof(int) * n);
+	int* temp = args;
 
 
-Image* filter(Image* input, char* startValue){
+	for (int i = 0; i < count; i++) {
+		*temp = n % (*lims);
+		n /= *lims;  
+		temp++; lims++; // move on
+	}
+	return args;
+}
+
+
+Image* filter(Image* input, char startValue){
 	// allocate the image
 	Image* output = (struct Image*) malloc(sizeof(struct Image));
 	output->x = input->x;
@@ -34,20 +51,13 @@ Image* filter(Image* input, char* startValue){
 
 	int datasize = input->n * input->x * input->y;
 	output->data = (unsigned char*) malloc(sizeof(unsigned char) * datasize);
-
-	int* args = malloc(sizeof(int) * 3);
-	int temp = startValue[0];
-	*args = temp % 30;
-	temp/=30;
-
-	*(args+1) = temp % 30;
-	temp/=30;
-
-	*(args+2) = temp % 30;
+	
+	int limits[] = {10,5,30};
+	int* args = variate(3, startValue, limits);
 
 	pixelwice(input, output->data, que, args); 
 
-	free(args);
+        free(args);
 
 	return output;
 }  
