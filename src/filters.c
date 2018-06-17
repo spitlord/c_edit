@@ -26,7 +26,7 @@ void que( pixel * in, pixel* out, int* args) {
    creates arguments, increments them sequentially
    count is number of arguments in the filter
    n is the hash number
-   lims is max value each argument can take
+   lims is max value each argument can take 
 */
 int* variate(int count, int n, int* lims) {
 	int* args = malloc(sizeof(int) * n);
