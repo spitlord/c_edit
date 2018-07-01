@@ -29,7 +29,7 @@ void que( pixel * in, pixel* out, int* args) {
    lims is max value each argument can take 
 */
 int* variate(int count, int n, int* lims) {
-	int* args = malloc(sizeof(int) * n);
+	int* args = malloc(sizeof(int) * count);
 	int* temp = args;
 
 
